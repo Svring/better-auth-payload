@@ -1,14 +1,14 @@
 {
   "name": "better-auth-payload",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "Production-ready template combining Payload CMS and Better Auth with admin access control, built on Next.js 16",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "build:linux": "docker build --platform linux/amd64 -t puddlecat/better-auth-payload:latest .",
-    "build:mac": "docker build -t puddlecat/better-auth-payload:latest .",
+    "build:linux": "docker build --platform linux/amd64 -t better-auth-payload:latest .",
+    "build:mac": "docker build -t better-auth-payload:latest .",
     "start": "next start",
     "lint:check": "ultracite check",
     "lint:fix": "ultracite fix",
