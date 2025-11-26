@@ -97,8 +97,13 @@ The Dockerfile uses multi-stage builds with Bun runtime for optimal performance.
 ## Environment Variables
 
 ```env
+# Payload & Drizzle
 DATABASE_URI=postgresql://user:password@localhost:5432/dbname
-PAYLOAD_SECRET=your-secret-key-here
+PAYLOAD_SECRET=random-secret-for-payload
+
+# Better Auth
+BETTER_AUTH_SECRET=random-secret-for-better-auth
+BETTER_AUTH_URL=http://localhost:3000
 ```
 
 ## Credits
