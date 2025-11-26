@@ -72,6 +72,7 @@ export interface Config {
     'user-accounts': UserAccount;
     'user-verifications': UserVerification;
     media: Media;
+    'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     'user-accounts': UserAccountsSelect<false> | UserAccountsSelect<true>;
     'user-verifications': UserVerificationsSelect<false> | UserVerificationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -90,6 +92,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: null;
   globals: {};
   globalsSelect: {};
   locale: null;
@@ -129,6 +132,22 @@ export interface User {
   email: string;
   emailVerified: boolean;
   image?: string | null;
+  /**
+   * The user's role. Defaults to 'user'. Admins will have the 'admin' role.
+   */
+  role: 'user' | 'admin';
+  /**
+   * Indicates whether the user is banned.
+   */
+  banned: boolean;
+  /**
+   * The reason for the user's ban.
+   */
+  banReason?: string | null;
+  /**
+   * The date when the user's ban will expire.
+   */
+  banExpires?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -143,6 +162,10 @@ export interface UserSession {
   expiresAt: string;
   ipAddress?: string | null;
   userAgent?: string | null;
+  /**
+   * The ID of the admin that is impersonating this session.
+   */
+  impersonatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -195,6 +218,23 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -274,6 +314,10 @@ export interface UsersSelect<T extends boolean = true> {
   email?: T;
   emailVerified?: T;
   image?: T;
+  role?: T;
+  banned?: T;
+  banReason?: T;
+  banExpires?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -287,6 +331,7 @@ export interface UserSessionsSelect<T extends boolean = true> {
   expiresAt?: T;
   ipAddress?: T;
   userAgent?: T;
+  impersonatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -336,6 +381,14 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

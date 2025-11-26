@@ -1,19 +1,23 @@
-import * as schema from '@/payload-generated-schema'
-import { drizzle } from '@payloadcms/db-postgres/drizzle/node-postgres'
-import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import * as schema from "@/payload-generated-schema";
+import { drizzle } from "@payloadcms/db-postgres/drizzle/node-postgres";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { user, admin, ac } from "./permissions";
 
 /* Payload re-exports drizzle package */
-const db = drizzle(process.env.DATABASE_URI as string)
+const db = drizzle(process.env.DATABASE_URI as string);
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: 'pg',
+    provider: "pg",
     schema,
     usePlural: false, // Should be false when having custom table name mapping as outlined below
   }),
   advanced: {
-    generateId: false, // Should be false since we'll let Payload generate the ids
+    database: {
+      generateId: false, // Should be false since we'll let Payload generate the ids
+    },
   },
   emailAndPassword: {
     enabled: true,
@@ -26,20 +30,20 @@ export const auth = betterAuth({
   is students, so you should set the user modelName to students.
   */
   user: {
-    modelName: 'users',
+    modelName: "users",
   },
   account: {
-    modelName: 'user_accounts',
+    modelName: "user_accounts",
     accountLinking: {
       allowDifferentEmails: true,
       enabled: true,
     },
   },
   verification: {
-    modelName: 'user_verifications',
+    modelName: "user_verifications",
   },
   session: {
-    modelName: 'user_sessions',
+    modelName: "user_sessions",
   },
 
   /* Go ahead and adjust your Better Auth as needed like adding social providers */
@@ -51,5 +55,13 @@ export const auth = betterAuth({
   // },
 
   /* And even plugins works too */
-  // plugins: []
-})
+  plugins: [
+    adminPlugin({
+      ac,
+      roles: {
+        admin,
+        user,
+      },
+    }),
+  ],
+});

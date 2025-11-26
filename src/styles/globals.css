@@ -1,9 +1,29 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
-@source "../node_modules/@daveyplate/better-auth-ui";
+@source "../../node_modules/@daveyplate/better-auth-ui";
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background-primary: #000000;
+  --color-background-secondary: #0a0a0a;
+  --color-background-tertiary: #121212;
+  --color-background-quaternary: #1e1e21;
+
+  --color-border-primary: #393939;
+
+  --color-theme-blue: #1c86fb;
+  --color-theme-green: #12b981;
+  --color-theme-red: #f87270;
+  --color-theme-yellow: #facc14;
+  --color-theme-purple: #a78afa;
+  --color-theme-gray: #a1a1aa;
+  --color-theme-darkblue: #3c5f89;
+
+  --font-geist-sans: var(--font-geist-sans);
+  --font-geist-mono: var(--font-geist-mono);
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
