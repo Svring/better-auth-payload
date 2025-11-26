@@ -1,20 +1,20 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
 
-import { Users } from './collections/auth/Users'
-import { Media } from './collections/Media'
-import { Sessions } from '@/collections/auth/Sessions'
-import { Accounts } from '@/collections/auth/Accounts'
-import { Verifications } from '@/collections/auth/Verifications'
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { postgresAdapter } from "@payloadcms/db-postgres";
+import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { buildConfig } from "payload";
+import sharp from "sharp";
+import { Accounts } from "@/collections/auth/Accounts";
+import { Sessions } from "@/collections/auth/Sessions";
+import { Verifications } from "@/collections/auth/Verifications";
+import { Users } from "./collections/auth/Users";
+import { Media } from "./collections/Media";
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
@@ -23,11 +23,11 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     routes: {
-      login: '/auth/sign-in',
-      createFirstUser: '/auth/sign-up',
-      forgot: '/auth/forgot-password',
-      reset: '/auth/reset-password',
-      logout: '/auth/sign-out',
+      login: "/auth/sign-in",
+      createFirstUser: "/auth/sign-up",
+      forgot: "/auth/forgot-password",
+      reset: "/auth/reset-password",
+      logout: "/auth/sign-out",
       // account: "/auth/settings" // Optional if you want to change Payload's account setting page in the admin dashboard
     },
   },
@@ -41,19 +41,19 @@ export default buildConfig({
     Media,
   ],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: process.env.DATABASE_URI || "",
     },
-    idType: 'uuid',
+    idType: "uuid",
   }),
   sharp,
   plugins: [
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
-})
+});

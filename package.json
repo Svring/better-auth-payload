@@ -1,5 +1,5 @@
 {
-  "name": "payload-better_auth-example",
+  "name": "better-auth-payload",
   "version": "1.0.0",
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
@@ -8,12 +8,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "generate": "payload generate:db-schema",
-    "studio": "drizzle-kit studio",
-    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "generate:schema": "cross-env NODE_OPTIONS=--no-deprecation payload generate:db-schema"
+    "lint:check": "ultracite check",
+    "lint:fix": "ultracite fix",
+    "payload:schema": "payload generate:db-schema",
+    "drizzle:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@daveyplate/better-auth-ui": "2.0.14",
@@ -26,11 +24,10 @@
     "better-auth": "^1.2.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cross-env": "^7.0.3",
-    "dotenv": "16.4.7",
+    "dotenv": "17.2.3",
     "geist": "^1.5.1",
     "graphql": "^16.8.1",
-    "lucide-react": "^0.525.0",
+    "lucide-react": "^0.555.0",
     "next": "16.0.4",
     "next-themes": "^0.4.6",
     "payload": "3.65.0",
@@ -42,34 +39,13 @@
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "@playwright/test": "1.50.0",
-    "@testing-library/react": "16.3.0",
-    "@types/node": "^22.5.4",
-    "@types/react": "19.1.0",
-    "@types/react-dom": "19.1.2",
-    "@vitejs/plugin-react": "4.5.2",
-    "eslint": "^9.16.0",
-    "eslint-config-next": "15.3.0",
+    "@biomejs/biome": "2.3.7",
+    "@types/node": "^24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "jsdom": "26.1.0",
-    "playwright": "1.50.0",
-    "playwright-core": "1.50.0",
-    "prettier": "^3.4.2",
     "tw-animate-css": "^1.3.5",
     "typescript": "5.7.3",
-    "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.2.3"
-  },
-  "engines": {
-    "node": "^18.20.2 || >=20.9.0",
-    "pnpm": "^9 || ^10"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "core-js",
-      "esbuild",
-      "sharp",
-      "unrs-resolver"
-    ]
+    "ultracite": "6.3.6"
   }
 }
