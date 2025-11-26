@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
+    "build:linux": "docker build --platform linux/amd64 -t puddlecat/better-auth-payload:latest .",
+    "build:mac": "docker build -t puddlecat/better-auth-payload:latest .",
     "start": "next start",
     "lint:check": "ultracite check",
     "lint:fix": "ultracite fix",
